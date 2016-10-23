@@ -23,11 +23,12 @@
     [textField resignFirstResponder];
     name.text = myname.text;
     today.text =date.text;
-    dday.text = date.text ;
+    NSString* msg=000; //날짜를 계산하는 로직만 알면 되는데 그걸 못하겠습니다. 우선 이 문자로 되어있는 값을 형변환해서 연산작업을 진행하고 그 결과를 다시 문자로 형변환해서 ddat.text 에 넣으면 될거 같은뎁...[(((int)[date.text substringFromIndex:3]- (int)[picker selectedRowInComponent:0])*365)+(((int)[date.text substringWithRange: NSMakeRange( 4,2)]- (int) [picker selectedRowInComponent:1])*30)].....;
+    dday.text = msg;
     return YES;
+    
+  
 }
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     year = [[NSArray alloc] initWithObjects:@"2000",@"2001",@"2002", @"2003",@"2004",@"2005",@"2006",@"2007",@"2008",@"2009",@"2010", @"2011",@"2012",@"2013",@"2014",@"2015",@"2016", nil];
@@ -62,12 +63,42 @@
         return [day objectAtIndex:row];
     
 }
+-(int) resultYear;{
+    int resultY; int i; int j;
+    i = (int)[date.text substringFromIndex:3];  // - (int)[picker selectedRowInComponent:0];
+    j = (int)[picker selectedRowInComponent:0];
+    resultY = i - j;
+    
+    return resultY * 365;
+    
+}
+-(int) resultMonth{
+    int resultM; int a; int b;
+    a = (int) [date.text substringWithRange: NSMakeRange( 4,2)];
+    b = (int) [picker selectedRowInComponent:1];
+    resultM = a-b ;
+    return resultM * 30;
+    
+    
+}
+
+-(int) resultDay {
+    int resultD; int c; int d;
+    c= (int) [date.text substringFromIndex:6];
+    d =(int) [picker selectedRowInComponent:2];
+    resultD = c+d;
+    
+    return resultD;
+}
+
+
 
 -(IBAction)getValue
 {
 
+   // int result = [(int)[date.text substringFromIndex:3] - (int)[picker selectedRowInComponent:0]]*365;
 //int days(int dyear, int dmonth, int dday);
-int dcount;
+/*int dcount;
 
     //사귄 날짜
     int first_year, first_month, first_day;
@@ -150,7 +181,7 @@ int days(int dyear, int dmonth, int dday)
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
+}*/
 }
-
 
 @end
